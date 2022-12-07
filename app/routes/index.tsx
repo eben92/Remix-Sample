@@ -1,7 +1,17 @@
+import { Link } from '@remix-run/react';
+import styles from '~/styles/home.css';
 export default function Index() {
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      Hello world
-    </div>
+    <main id='content'>
+      <h1>A better way of keeping track of your notes</h1>
+      <p>Try our early and never loose track of your notes again!</p>
+      <p id='cta'>
+        <Link to='/notes'>Try now</Link>
+      </p>
+    </main>
   );
+}
+
+export function links() {
+  return [{ rel: 'stylesheet', href: styles }];
 }
