@@ -3,10 +3,11 @@ import NewNote, { links as newNoteLinks } from '~/components/NewNote';
 import NoteList, { links as noteListLinks } from '~/components/NoteList';
 import { getStoredNotes, storeNotes } from '~/data/notes';
 import type { LoaderArgs } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { useActionData, useLoaderData } from '@remix-run/react';
 
 export default function NotesPage() {
   const notes = useLoaderData();
+
   return (
     <main>
       <NewNote />
@@ -31,6 +32,12 @@ export async function action({ request }: any) {
     content: formData.get('content'),
     id: ''
   };
+
+  if (noteData.title.trim().length < 5) {
+    return {
+      message: 'Invalid title. Must be atleast 5 characters long'
+    };
+  }
 
   const existingNotes = await getStoredNotes();
   noteData.id = new Date().toISOString();
